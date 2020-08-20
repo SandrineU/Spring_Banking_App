@@ -1,76 +1,48 @@
 package be.intecbrussel.banking_app_spring.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Entity
-public class BankAccount {
 
+public class BankAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
+    private double bankAccNr;
 
     @Version
     private int version;
+
+    @ManyToOne
+    private Client client;
 
     private double balance;
 
     private double previousTransaction;
 
-    private String customerName;
-
-    private String customerLastName;
-
-    @GeneratedValue
-    private double bankAccNr;
-
     public BankAccount() {
 
     }
 
-    public BankAccount(int customerId, String customerName, String customerLastName) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerLastName = customerLastName;
+    public BankAccount(Client client, double balance, double previousTransaction) {
+        this.client = client;
+        this.balance = balance;
+        this.previousTransaction = previousTransaction;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public double getBankAccNr() {
+        return bankAccNr;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-
-    public double getPreviousTransaction() {
-        return previousTransaction;
-    }
-
-    public void setPreviousTransaction(double previousTranasaction) {
-        this.previousTransaction = previousTranasaction;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerLastName() {
-        return customerLastName;
-    }
-
-    public void setCustomerLastName(String customerLastName) {
-        this.customerLastName = customerLastName;
+    public void setBankAccNr(double bankAccNr) {
+        this.bankAccNr = bankAccNr;
     }
 
     public int getVersion() {
@@ -81,6 +53,14 @@ public class BankAccount {
         this.version = version;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public double getBalance() {
         return balance;
     }
@@ -89,12 +69,11 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public double getBankAccNr() {
-        return bankAccNr;
+    public double getPreviousTransaction() {
+        return previousTransaction;
     }
 
-    public void setBankAccNr(double bankAccNr) {
-        this.bankAccNr = bankAccNr;
+    public void setPreviousTransaction(double previousTransaction) {
+        this.previousTransaction = previousTransaction;
     }
 }
-
