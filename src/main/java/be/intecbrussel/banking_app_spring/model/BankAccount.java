@@ -5,43 +5,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+@Entity
 public class BankAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private double bankAccNr;
+    private long id;
 
     @Version
     private int version;
+
+    private String bankAccNr;
 
     @ManyToOne
     private Client client;
 
     private double balance;
 
-    private double previousTransaction;
+    @ManyToMany
+    private List<Transaction> transactions;
 
     public BankAccount() {
-
+        this.bankAccNr = generateRandomAccountNumber();
+        this.balance = 0;
+        transactions = new ArrayList<>();
     }
 
-    public BankAccount(Client client, double balance, double previousTransaction) {
+    public BankAccount(Client client) {
+        this.client = client;
+        this.balance = 0;
+        this.bankAccNr = generateRandomAccountNumber();
+        transactions = new ArrayList<>();
+    }
+
+    public BankAccount(Client client, double balance) {
         this.client = client;
         this.balance = balance;
-        this.previousTransaction = previousTransaction;
+        transactions = new ArrayList<>();
     }
 
-    public double getBankAccNr() {
+    private String generateRandomAccountNumber() {
+        Random random = new Random();
+        int firstPart = random.nextInt(999);
+        int secondPart = random.nextInt(9999999);
+        int thirdPart = random.nextInt(99);
+
+        return "" +firstPart+"-"+ secondPart+"-"+ thirdPart;
+    }
+
+    public String getBankAccNr() {
         return bankAccNr;
     }
 
-    public void setBankAccNr(double bankAccNr) {
+    public void setBankAccNr(String bankAccNr) {
         this.bankAccNr = bankAccNr;
     }
 
@@ -67,13 +89,5 @@ public class BankAccount {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public double getPreviousTransaction() {
-        return previousTransaction;
-    }
-
-    public void setPreviousTransaction(double previousTransaction) {
-        this.previousTransaction = previousTransaction;
     }
 }

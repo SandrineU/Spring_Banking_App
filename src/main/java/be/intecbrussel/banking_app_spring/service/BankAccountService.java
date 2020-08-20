@@ -17,22 +17,31 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class BankAccountService {
 
+    private ClientService clientService;
 
     private BankAccountRepository bankAccountRepository;
 
     @Autowired
-    public BankAccountService(BankAccountRepository bankAccountRepository) {
+    public BankAccountService(BankAccountRepository bankAccountRepository, ClientService clientService) {
         this.bankAccountRepository = bankAccountRepository;
+        this.clientService = clientService;
     }
 
-    public void createClient(int idCardNumber,String name,String lastName, String dateOfBirth, String address){
+    public void createBankAccount(int clientId){
+        Optional<Client> client = clientService.findById(clientId);
+        BankAccount bankAccount = new BankAccount();
 
+        if(client.isPresent()) {
+            bankAccountRepository.save(bankAccount);
+        } else {
+            System.out.println("Cant find client for id = " + clientId);
+        }
     }
 
     public void saveBankAccount(BankAccount bankAccount) {
         bankAccountRepository.save(bankAccount);
     }
-
+//
 //    public void transactionToBankAccount(int receiverBankAccountId, int senderBankAccountId, double amountToSend) {
 //        Optional<BankAccount> receiverBankAccount = bankAccountRepository.findById(receiverBankAccountId);
 //        Optional<BankAccount> senderBankAccount = bankAccountRepository.findById(senderBankAccountId);

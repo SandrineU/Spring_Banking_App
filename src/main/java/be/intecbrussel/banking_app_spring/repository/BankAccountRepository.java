@@ -9,5 +9,4 @@ public interface BankAccountRepository extends CrudRepository<BankAccount, Integ
 
     @Override
     List<BankAccount> findAll();
-
 }

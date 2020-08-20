@@ -1,10 +1,13 @@
 package be.intecbrussel.banking_app_spring.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
@@ -13,18 +16,18 @@ public class Client {
     private int version;
 
     @OneToMany
-    private List<BankAccount> bankAccounts;
+    private List<BankAccount> bankAccounts; //fix JPA
 
     private int idCardNumber;
     private String name;
     private String lastName;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String address;
 
     public Client() {
     }
 
-    public Client(int idCardNumber, String name, String lastName, String dateOfBirth, String address) {
+    public Client(int idCardNumber, String name, String lastName, LocalDate dateOfBirth, String address) {
         this.idCardNumber = idCardNumber;
         this.name = name;
         this.lastName = lastName;
@@ -81,19 +84,19 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
