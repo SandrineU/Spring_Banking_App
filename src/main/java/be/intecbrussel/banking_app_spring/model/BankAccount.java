@@ -1,10 +1,16 @@
 package be.intecbrussel.banking_app_spring.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Random;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Entity
 public class BankAccount {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,14 +19,15 @@ public class BankAccount {
     @Version
     private int version;
 
-    private BigDecimal balance;
+    private double balance;
 
-    private int previousTransaction;
+    private double previousTransaction;
 
     private String customerName;
 
     private String customerLastName;
 
+    @GeneratedValue
     private double bankAccNr;
 
     public BankAccount() {
@@ -42,11 +49,11 @@ public class BankAccount {
     }
 
 
-    public int getPreviousTransaction() {
+    public double getPreviousTransaction() {
         return previousTransaction;
     }
 
-    public void setPreviousTransaction(int previousTranasaction) {
+    public void setPreviousTransaction(double previousTranasaction) {
         this.previousTransaction = previousTranasaction;
     }
 
@@ -74,11 +81,11 @@ public class BankAccount {
         this.version = version;
     }
 
-    public BigDecimal getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

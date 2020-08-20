@@ -12,6 +12,7 @@ public class BankAccountController {
 
     BankAccountService bankAccountService;
 
+
     @Autowired
     public BankAccountController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
@@ -29,8 +30,8 @@ public class BankAccountController {
     }
 
     @PostMapping(value = "/deposit/{receiverId}/{senderId}/{amount}")
-    public void depositToBankAccount(@PathVariable int receiverId, @PathVariable int senderId, @PathVariable double amount) {
-        bankAccountService.depositToBankAccount(receiverId, senderId, amount);
+    public void transactionToBankAccount(@PathVariable int receiverId, @PathVariable int senderId, @PathVariable double amount) {
+        bankAccountService.transactionToBankAccount(receiverId, senderId, amount);
     }
 
 //    @PostMapping(value = "")
