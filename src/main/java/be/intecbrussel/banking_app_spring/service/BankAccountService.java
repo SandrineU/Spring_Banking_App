@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 @Service
-public class BankAccountService {
+public class BankAccountService{
 
     private ClientService clientService;
 
@@ -27,14 +27,14 @@ public class BankAccountService {
         this.clientService = clientService;
     }
 
-    public void createBankAccount(int clientId){
-        Optional<Client> client = clientService.findById(clientId);
-        BankAccount bankAccount = new BankAccount();
+    public void createBankAccount(int customerId){
+        Optional<Client> client = clientService.findById(customerId);
+        BankAccount bankAccount = new BankAccount(client.get());
 
         if(client.isPresent()) {
             bankAccountRepository.save(bankAccount);
         } else {
-            System.out.println("Cant find client for id = " + clientId);
+            System.out.println("Cant find client for id = " + customerId);
         }
     }
 
@@ -45,7 +45,7 @@ public class BankAccountService {
 //    public void transactionToBankAccount(int receiverBankAccountId, int senderBankAccountId, double amountToSend) {
 //        Optional<BankAccount> receiverBankAccount = bankAccountRepository.findById(receiverBankAccountId);
 //        Optional<BankAccount> senderBankAccount = bankAccountRepository.findById(senderBankAccountId);
-//
+
 //
 //        if (receiverBankAccount.isPresent() && senderBankAccount.isPresent()) {
 //            BankAccount receiver = receiverBankAccount.get();

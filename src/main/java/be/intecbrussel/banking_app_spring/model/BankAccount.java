@@ -33,13 +33,13 @@ public class BankAccount {
 
     public BankAccount() {
         this.bankAccNr = generateRandomAccountNumber();
-        this.balance = 0;
+        this.balance = 1000;
         transactions = new ArrayList<>();
     }
 
     public BankAccount(Client client) {
         this.client = client;
-        this.balance = 0;
+        this.balance = 1000;
         this.bankAccNr = generateRandomAccountNumber();
         transactions = new ArrayList<>();
     }

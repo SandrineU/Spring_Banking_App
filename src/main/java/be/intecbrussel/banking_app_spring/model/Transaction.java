@@ -20,6 +20,12 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(BankAccount receiverAccount, BankAccount senderAccount, double amountToSend) {
+        this.receiverAccount = receiverAccount;
+        this.senderAccount = senderAccount;
+        this.amountToSend = amountToSend;
+    }
+
     public long getId() {
         return id;
     }
